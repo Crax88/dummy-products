@@ -2,6 +2,7 @@ import { createBrowserRouter, redirect } from 'react-router-dom';
 import { ROUTES } from '@/shared/model/routes';
 import App from './App';
 import { Providers } from './providers';
+import { ProtectedRoute } from './protect-route';
 
 export const router = createBrowserRouter([
   {
@@ -12,12 +13,17 @@ export const router = createBrowserRouter([
     ),
     children: [
       {
-        path: ROUTES.LOGIN,
-        lazy: () => import('@/features/auth/login.page'),
+        element: <ProtectedRoute />,
+        children: [
+          {
+            path: ROUTES.PRODUCTS,
+            lazy: () => import('@/features/products/products.page'),
+          },
+        ],
       },
       {
-        path: ROUTES.PRODUCTS,
-        lazy: () => import('@/features/products/products.page'),
+        path: ROUTES.LOGIN,
+        lazy: () => import('@/features/auth/login.page'),
       },
       {
         path: ROUTES.HOME,

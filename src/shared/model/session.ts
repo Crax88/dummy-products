@@ -33,7 +33,7 @@ export const useSession = createGStore(() => {
   };
 
   const logout = () => {
-    storage.remove(SESSION_KEY);
+    !remember && storage.remove(SESSION_KEY);
     setSession(null);
   };
 

@@ -10,7 +10,7 @@ export const api = axios.create({
 });
 
 api.interceptors.request.use(async (config) => {
-  const token = await useSession().refreshToken();
+  const token = await useSession.getState().refreshToken();
 
   if (token) {
     config.headers.set('Authorization', `Bearer ${token}`);
