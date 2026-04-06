@@ -1,5 +1,7 @@
+import { LoginForm } from './ui/LoginForm';
+
 const LoginPage = () => {
-  return <h1>Login page</h1>;
+  return <LoginForm />;
 };
 
 export const Component = LoginPage;
