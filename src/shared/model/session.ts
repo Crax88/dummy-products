@@ -41,13 +41,12 @@ export const useSession = createGStore(() => {
     if (!session) {
       return null;
     }
-    const { iat } = jwtDecode(session.accessToken);
-
+    const { iat, exp } = jwtDecode(session.accessToken);
     if (!iat) {
       return null;
     }
 
-    if (iat < Date.now() / 1000 + 1) {
+    if (iat * 60 < Date.now() / 1000 + 1) {
       if (!refreshTokenPromise) {
         refreshTokenPromise = api
           .post<{ accessToken: string; refreshToken: string }>(
