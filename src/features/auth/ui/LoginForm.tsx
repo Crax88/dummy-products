@@ -55,6 +55,7 @@ export const LoginForm = () => {
           className='animate-slide-up animation-delay-200'
         >
           <Input
+            className='mb-4'
             label='Логин'
             placeholder='test'
             error={errors.username?.message}
@@ -78,6 +79,7 @@ export const LoginForm = () => {
           />
 
           <Input
+            className='mb-4'
             label='Пароль'
             placeholder='******'
             error={errors.password?.message}
