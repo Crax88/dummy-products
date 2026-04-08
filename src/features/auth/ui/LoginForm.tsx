@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useLogin } from '../model/use-login';
 import { loginSchema } from '../model/schema';
 import type { LoginCredentials } from '../model/schema';
-import { Button, Input } from '@/shared/ui/kit';
+import { Button, ErrorMessage, Input } from '@/shared/ui/kit';
 import {
   UserIcon,
   LockIcon,
@@ -110,11 +110,7 @@ export const LoginForm = () => {
             <span className='ml-2 text-sm text-gray-700'>Запомнить данные</span>
           </label>
 
-          {errorMessage && (
-            <div className='mb-4 p-3 bg-red-50 border border-red-200 text-red-700 rounded-lg text-sm animate-slide-down'>
-              {errorMessage}
-            </div>
-          )}
+          {errorMessage && <ErrorMessage message={errorMessage} />}
 
           <Button type='submit' disabled={isPending} className='w-full'>
             {isPending ? 'Вход...' : 'Войти'}

@@ -1,6 +1,6 @@
 import { useDebouncedValue } from '@/shared/lib/hooks.';
 import { ArrowsIcon, PlusIcon } from '@/shared/ui/icons';
-import { Button } from '@/shared/ui/kit';
+import { Button, ErrorMessage } from '@/shared/ui/kit';
 import { Modal } from '@/shared/ui/kit/Modal';
 import { useState } from 'react';
 import type { CreateProductDto, Product } from './model/schema';
@@ -18,7 +18,7 @@ const ProductsPage = () => {
   const { filters, updateFiltes } = useFilters();
   const [createModalOpen, setCreateModalOpen] = useState(false);
 
-  const { data, isFetching } = useProducts({
+  const { data, isFetching, errorMessage } = useProducts({
     sortBy: filters.sortBy as keyof Product,
     search: useDebouncedValue(filters.search),
     order: filters.order as 'asc' | 'desc',
@@ -74,6 +74,7 @@ const ProductsPage = () => {
           </Button>
         </div>
       </div>
+      {errorMessage && <ErrorMessage message={errorMessage} />}
       <div className='flex-1 overflow-hidden'>
         <ProductsTable
           products={data?.products || []}
@@ -97,6 +98,7 @@ const ProductsPage = () => {
           onSubmit={(dto: CreateProductDto) => createProduct.createProduct(dto)}
           onCancel={() => setCreateModalOpen(false)}
           isSubmitting={createProduct.isPending}
+          error={createProduct.errorMessage}
         />
       </Modal>
     </div>

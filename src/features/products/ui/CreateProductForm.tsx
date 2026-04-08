@@ -1,7 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Input, Button } from '@/shared/ui/kit';
+import { Input, Button, ErrorMessage } from '@/shared/ui/kit';
 import { createProductSchema } from '../model/schema';
 import type {
   CreateProductDto,
@@ -12,12 +12,14 @@ interface ProductFormProps {
   onSubmit: (data: CreateProductDto) => void;
   onCancel: () => void;
   isSubmitting: boolean;
+  error?: string;
 }
 
 export const CreateProductForm: React.FC<ProductFormProps> = ({
   onSubmit,
   onCancel,
   isSubmitting,
+  error,
 }) => {
   const {
     register,
@@ -42,6 +44,7 @@ export const CreateProductForm: React.FC<ProductFormProps> = ({
         });
       })}
     >
+      {error && <ErrorMessage message={error} />}
       <Input
         label='Наименование'
         {...register('title')}
