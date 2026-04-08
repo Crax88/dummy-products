@@ -1,6 +1,6 @@
-import type { TableProps } from './types';
+import type { TableProps, TableData } from './types';
 
-export const Body = <T extends Record<string, any>>({
+export const Body = <T extends TableData>({
   columns,
   data,
   isLoading,

@@ -1,6 +1,6 @@
-import type { TableColumns } from './types';
+import type { TableColumns, TableData } from './types';
 
-export const Header = <T extends Record<string, any>>({
+export const Header = <T extends TableData>({
   columns,
   sortBy,
   sortOrder,

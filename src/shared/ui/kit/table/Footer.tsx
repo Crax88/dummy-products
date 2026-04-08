@@ -1,6 +1,6 @@
-import type { TableProps } from './types';
+import type { TableData, TableProps } from './types';
 
-export const Footer = <T extends Record<string, any>>({
+export const Footer = <T extends TableData>({
   onPageChange,
   currentPage,
   totalPages,

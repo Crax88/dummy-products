@@ -1,9 +1,9 @@
 import { Body } from './Body';
 import { Footer } from './Footer';
 import { Header } from './Header';
-import type { TableProps } from './types';
+import type { TableData, TableProps } from './types';
 
-type TableComponent = <T extends Record<string, any>>(
+type TableComponent = <T extends TableData>(
   props: TableProps<T>,
 ) => React.ReactElement;
 

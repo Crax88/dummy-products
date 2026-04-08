@@ -4,7 +4,8 @@ type WithId = {
   id: string | number;
 };
 
-type TableData<T = Record<string, any>> = T & WithId;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type TableData<T = Record<string, any>> = T & WithId;
 
 export type TableProps<T extends TableData> = {
   data: T[];

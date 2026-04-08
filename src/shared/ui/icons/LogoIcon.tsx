@@ -7,8 +7,8 @@ export const LogoIcon = React.forwardRef<SVGSVGElement, IconProps>(
       <svg
         ref={ref}
         xmlns='http://www.w3.org/2000/svg'
-        width='35'
-        height='34'
+        width={size}
+        height={size}
         viewBox='0 0 35 34'
         fill='currentColor'
         className={className}
