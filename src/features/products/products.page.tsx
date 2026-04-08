@@ -1,16 +1,22 @@
-import { Button } from '@/shared/ui/kit';
-import { useProducts } from './model/use-products';
-import { ProductSearch } from './ui/ProductSearch';
-import { ProductsTable } from './ui/ProductsTable';
-import type { Product } from './model/schema';
-import { useFilters } from './model/use-filters';
 import { useDebouncedValue } from '@/shared/lib/hooks.';
 import { ArrowsIcon, PlusIcon } from '@/shared/ui/icons';
+import { Button } from '@/shared/ui/kit';
+import { Modal } from '@/shared/ui/kit/Modal';
+import { useState } from 'react';
+import type { CreateProductDto, Product } from './model/schema';
+import { useCreateProduct } from './model/use-create-product';
+import { useFilters } from './model/use-filters';
+import { useProducts } from './model/use-products';
+import { CreateProductForm } from './ui/CreateProductForm';
+import { ProductSearch } from './ui/ProductSearch';
+import { ProductsTable } from './ui/ProductsTable';
+import { toast } from 'react-toastify';
 
 const ITEMS_PER_PAGE = 10;
 
 const ProductsPage = () => {
   const { filters, updateFiltes } = useFilters();
+  const [createModalOpen, setCreateModalOpen] = useState(false);
 
   const { data, isFetching } = useProducts({
     sortBy: filters.sortBy as keyof Product,
@@ -18,6 +24,13 @@ const ProductsPage = () => {
     order: filters.order as 'asc' | 'desc',
     limit: ITEMS_PER_PAGE,
     skip: (Number(filters.page) - 1) * ITEMS_PER_PAGE,
+  });
+
+  const createProduct = useCreateProduct({
+    onSuccess: () => {
+      setCreateModalOpen(false);
+      toast.success('Товар успешно добавлен');
+    },
   });
 
   const handleRefresh = () => {
@@ -53,7 +66,7 @@ const ProductsPage = () => {
           >
             <ArrowsIcon className='h-4 w-4 text-gray-400' />
           </Button>
-          <Button className='text-xs'>
+          <Button className='text-xs' onClick={() => setCreateModalOpen(true)}>
             <div className='flex gap-1'>
               <PlusIcon className='h-4 w-4 text-gray-400' />
               Добавить
@@ -75,6 +88,17 @@ const ProductsPage = () => {
           onSort={handleSortFieldChange}
         />
       </div>
+      <Modal
+        title='Создание товара'
+        isOpen={createModalOpen}
+        onClose={() => setCreateModalOpen(false)}
+      >
+        <CreateProductForm
+          onSubmit={(dto: CreateProductDto) => createProduct.createProduct(dto)}
+          onCancel={() => setCreateModalOpen(false)}
+          isSubmitting={createProduct.isPending}
+        />
+      </Modal>
     </div>
   );
 };

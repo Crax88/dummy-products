@@ -7,10 +7,17 @@ export const useProducts = (params: ProductsSearch = {}) => {
   const { data, isFetching } = useQuery<ProductsResponse>({
     queryKey: ['products', params],
     queryFn: async () => {
-      const res = await api.get('/products', {
-        params: { ...rest, q: search },
-      });
-      return res.data;
+      if (search) {
+        const res = await api.get('/products/search', {
+          params: { q: search },
+        });
+        return res.data;
+      } else {
+        const res = await api.get('/products', {
+          params: { ...rest },
+        });
+        return res.data;
+      }
     },
   });
 
