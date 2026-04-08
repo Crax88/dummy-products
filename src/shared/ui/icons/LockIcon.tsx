@@ -1,14 +1,8 @@
 import React from 'react';
-
-export type IconProps = React.SVGProps<SVGSVGElement> & {
-  /** Размер иконки в px */
-  size?: number | string;
-  /** Доступное описание для screen readers */
-  title?: string;
-};
+import type { IconProps } from './types';
 
 export const LockIcon = React.forwardRef<SVGSVGElement, IconProps>(
-  function LockIcon({ title, size = 24, className, ...props }, ref) {
+  function LockIcon({ size = 24, className, ...props }, ref) {
     return (
       <svg
         ref={ref}
