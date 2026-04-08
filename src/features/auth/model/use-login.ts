@@ -11,7 +11,7 @@ export function useLogin() {
 
   const loginMutation = useMutation({
     mutationFn: (credentials: LoginCredentials) =>
-      api.post<LoginResponse>('/auth/login', credentials),
+      api.post<LoginResponse>('/auth/login', credentials, { timeout: 5000 }),
     onSuccess: (data, vars) => {
       session.login(data.data, vars.remember);
       navigate(ROUTES.HOME);

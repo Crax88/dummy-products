@@ -10,11 +10,13 @@ export const useProducts = (params: ProductsSearch = {}) => {
       if (search) {
         const res = await api.get('/products/search', {
           params: { q: search },
+          timeout: 5000,
         });
         return res.data;
       } else {
         const res = await api.get('/products', {
           params: { ...rest },
+          timeout: 5000,
         });
         return res.data;
       }

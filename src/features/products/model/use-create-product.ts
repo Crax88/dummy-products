@@ -10,7 +10,7 @@ export function useCreateProduct({ onSuccess }: CreateProductProps) {
   const createProductMutation = useMutation({
     mutationKey: ['product'],
     mutationFn: async (dto: CreateProductDto) => {
-      const res = await api.post('/products/add', dto);
+      const res = await api.post('/products/add', dto, { timeout: 5000 });
       return res.data;
     },
     onSuccess: () => onSuccess(),
