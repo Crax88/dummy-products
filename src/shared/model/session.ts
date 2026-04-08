@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { createGStore } from 'create-gstore';
 import { jwtDecode } from 'jwt-decode';
 import { storage } from '../lib/storage';
@@ -41,7 +41,7 @@ export const useSession = createGStore(() => {
     if (!session) {
       return null;
     }
-    const { iat, exp } = jwtDecode(session.accessToken);
+    const { iat } = jwtDecode(session.accessToken);
     if (!iat) {
       return null;
     }
@@ -75,6 +75,14 @@ export const useSession = createGStore(() => {
       return session.accessToken;
     }
   };
+
+  useEffect(() => {
+    return () => {
+      if (!remember) {
+        storage.remove(SESSION_KEY);
+      }
+    };
+  }, []);
 
   return { login, logout, session, refreshToken };
 });
