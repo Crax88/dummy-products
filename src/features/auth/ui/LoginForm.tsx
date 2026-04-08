@@ -117,7 +117,7 @@ export const LoginForm = () => {
           )}
 
           <Button type='submit' disabled={isPending} className='w-full'>
-            Войти
+            {isPending ? 'Вход...' : 'Войти'}
           </Button>
 
           <div className='relative my-6'>
