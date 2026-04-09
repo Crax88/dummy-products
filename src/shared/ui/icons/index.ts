@@ -5,3 +5,5 @@ export { LogoIcon } from './LogoIcon';
 export { CrossIcon } from './CorssIcon';
 export { PlusIcon } from './PlusIcon';
 export { ArrowsIcon } from './ArrowsIcon';
+export { DotsIcon } from './DotsIcon';
+export { PlusOutlinedIcon } from './PlusOutlinedIcon';
