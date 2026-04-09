@@ -16,16 +16,23 @@ export type TableProps<T extends TableData> = {
   itemsPerPage: number;
   onPageChange: (newPage: number) => void;
   isLoading?: boolean;
+  onRowSelect?: (selectedIds: T['id'][]) => void;
+  selectedRows?: T['id'][];
+  rowActions?: (row: T) => ReactNode;
 } & CommonSortProps<T>;
 
 export type TableColumn<T, K extends keyof T = keyof T> = {
   key: K;
   label: string;
+  width?: number;
   render?: (value: T[K], item: T) => ReactNode;
 };
 
-export type TableColumns<T> = {
+export type TableColumns<T extends TableData> = {
   columns: TableColumn<T>[];
+  onSelectAll?: (selected: boolean) => void;
+  allSelected?: boolean;
+  hasActions?: boolean;
 } & CommonSortProps<T>;
 
 export type CommonSortProps<T, K extends keyof T = keyof T> = {
