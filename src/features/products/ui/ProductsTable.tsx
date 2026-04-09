@@ -1,6 +1,7 @@
-import { Table } from '@/shared/ui/kit';
+import { Button, Table } from '@/shared/ui/kit';
 import type { TableColumn } from '@/shared/ui/kit';
 import type { Product } from '../model/schema';
+import { DotsIcon, PlusOutlinedIcon } from '@/shared/ui/icons';
 
 interface ProductTableProps {
   products: Product[];
@@ -80,7 +81,16 @@ export const ProductsTable: React.FC<ProductTableProps> = ({
       data={products}
       columns={columns}
       currentPage={currentPage}
-      rowActions={() => <p>Actions</p>}
+      rowActions={() => (
+        <div className='flex gap-1'>
+          <Button className='rounded-full text-xs'>
+            <PlusOutlinedIcon size={15} />
+          </Button>
+          <Button className='bg-white hover:bg-white'>
+            <DotsIcon />
+          </Button>
+        </div>
+      )}
       onRowSelect={onSelect}
       selectedRows={selectedProducts}
       {...rest}
