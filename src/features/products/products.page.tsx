@@ -17,6 +17,7 @@ const ITEMS_PER_PAGE = 10;
 const ProductsPage = () => {
   const { filters, updateFiltes } = useFilters();
   const [createModalOpen, setCreateModalOpen] = useState(false);
+  const [selectedProducts, setSelectedProducts] = useState<Product['id'][]>([]);
 
   const { data, isFetching, errorMessage } = useProducts({
     sortBy: filters.sortBy as keyof Product,
@@ -87,6 +88,8 @@ const ProductsPage = () => {
           totalPages={Math.ceil((data?.total || 0) / ITEMS_PER_PAGE)}
           onPageChange={handlePageChange}
           onSort={handleSortFieldChange}
+          selectedProducts={selectedProducts}
+          onSelect={setSelectedProducts}
         />
       </div>
       <Modal

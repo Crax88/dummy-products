@@ -13,12 +13,15 @@ interface ProductTableProps {
   itemsPerPage: number;
   onPageChange: (page: number) => void;
   isLoading?: boolean;
+  selectedProducts: Product['id'][];
+  onSelect: (productIds: Product['id'][]) => void;
 }
 
 const columns: TableColumn<Product>[] = [
   {
     key: 'title',
     label: 'Наименование',
+    width: 400,
     render(value, product) {
       return (
         <div className='flex gap-1'>
@@ -68,6 +71,8 @@ const columns: TableColumn<Product>[] = [
 export const ProductsTable: React.FC<ProductTableProps> = ({
   products,
   currentPage = 1,
+  onSelect,
+  selectedProducts,
   ...rest
 }) => {
   return (
@@ -75,6 +80,9 @@ export const ProductsTable: React.FC<ProductTableProps> = ({
       data={products}
       columns={columns}
       currentPage={currentPage}
+      rowActions={() => <p>Actions</p>}
+      onRowSelect={onSelect}
+      selectedRows={selectedProducts}
       {...rest}
     />
   );
