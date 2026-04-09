@@ -33,7 +33,7 @@ export const useSession = createGStore(() => {
   };
 
   const logout = () => {
-    if (!remember) storage.remove(SESSION_KEY);
+    storage.remove(SESSION_KEY);
     setSession(null);
   };
 
@@ -78,11 +78,14 @@ export const useSession = createGStore(() => {
 
   useEffect(() => {
     return () => {
+      if (session) {
+        setRemember(true);
+      }
       if (!remember) {
         storage.remove(SESSION_KEY);
       }
     };
-  }, [remember]);
+  }, []);
 
   return { login, logout, session, refreshToken };
 });
